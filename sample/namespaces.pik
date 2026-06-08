@@ -1,0 +1,75 @@
+$blue   = 0x326CE5
+$red    = 0xE53242
+$green  = 0x1E8A41
+$teal   = 0x1B8594
+$orange = 0xE58632
+$purple = 0x8632E5
+
+boxwid = 1
+boxht = boxwid
+
+thickness = 0.03
+
+$d = 0.40
+
+A: box invis
+move $d*3.5
+S: box invis
+
+
+boxwid = boxwid +$d
+boxht = boxht +$d
+MNTA: box  with .c at A.c  color $red
+MNTB: box  with .c at S.c  color $red
+
+
+boxwid = boxwid +$d
+boxht = boxht +$d
+PIDA: box  with .c at A.c color $green
+PIDB: box  with .c at S.c color $green
+
+boxwid = boxwid +$d
+boxht = boxht +$d
+USERA: box  with .c at A.c color $teal
+USERB: box  with .c at S.c color $teal
+
+MS: line from USERA.w to USERB.e invis
+
+boxht = boxht +$d
+boxwid = MS.wid+$d
+UTC: box at 0.5 between A and S color $purple
+
+
+boxwid = boxwid +$d
+boxht = boxht +$d
+IPC: box at previous .c color $orange
+
+boxwid = boxwid +$d
+boxht = boxht +$d
+NETWORK: box at previous .c  color $blue
+
+
+"MNT Namespace" with .s at MNTA.n  color $red
+"MNT Namespace" with .s at MNTB.n  color $red
+
+"PID Namespace" with .s at PIDA.n color $green
+"PID Namespace" with .s at PIDB.n color $green
+
+"USER Namespace" with .s at USERA.n color $teal
+"USER Namespace" with .s at USERB.n color $teal
+
+"UTC Namespace" with .s at UTC.n  color $purple
+
+"IPC Namespace" with .s at IPC.n color $orange
+NTXT: "Network Namespace" with .s at NETWORK.n color $blue
+
+boxwid = 0.8
+boxht = boxwid
+PB:box with .n at S.n fill 0xeeeeee color 0xeeeeee
+PA:box with .n at A.n  same as PB
+
+"Application" big with .n at PA.s color red
+"Side Car" big "Container" big with .n at PB.s color red
+
+
+"Side Cars Linux Namespaces Explained" big big with .n at NETWORK.s color 0x222222
