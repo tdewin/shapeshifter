@@ -1,0 +1,71 @@
+$blue   = 0x326CE5
+$red    = 0xE53242
+$green  = 0x1E8A41
+$teal   = 0x1B8594
+$orange = 0xE58632
+$purple = 0x8632E5
+$lightgrey = 0xeeeeee
+$darkgray = 0x333333
+
+#16/9 for 1280x720
+$scale = 3
+$docwid = 16/$scale
+$docht = 9/$scale
+SLIDE: box wid $docwid ht $docht invis
+
+
+# margin / padding
+$m = 0.8/$scale
+$n = $m/2
+$p = $m
+$ln = $m
+$leftmargin = $m
+$rightmargin = $m
+$topmargin = $m
+$bottommargin = $m
+$titlemargin = $topmargin+$ln*1.5
+$iconplaceholder = 0.3
+
+#grid lines and areas
+$areas = 3
+$spacebetween = $n
+$uswid = $docwid-$leftmargin-$rightmargin
+$usht = $docht-$titlemargin-$bottommargin
+$arht = ($usht-($spacebetween*($areas-1)))/$areas
+
+AREASTART:dot at SLIDE.nw+($leftmargin,-$titlemargin) invis
+
+
+#areas
+boxwid = $uswid
+boxht = $arht
+movewid = $spacebetween
+
+down
+ARA:box with .nw at AREASTART fill $lightgrey color $lightgrey
+move 
+ARB:box same as ARA
+move 
+ARC:box  same as ARA
+move 
+#ARD:box  same as ARA
+#move 
+#ARE:box  same as ARA
+
+LINE: line from ARA.nw+($n,0) then down $n then down $n then down $n then down until even with ARA.s color $red invis
+FTIT: "Deployments" big big above ljust with .n at 1th vertex of LINE color $red
+SUB: "A Deployment manages a set of Pods to run an application workload, usually one that doesn't maintain state."  ljust small with .n at 3th vertex of LINE color $darkgray
+
+LINE: line from ARB.nw+($n,0) then down $n then down $n then down $n then down until even with ARB.s color $red invis
+FTIT: "StatefulSet" big big above ljust with .n at 1th vertex of LINE color $red 
+SUB: "A StatefulSet runs a group of Pods, and maintains a sticky identity for each of those Pods. This is useful for managing applications that need persistent storage or a stable, unique network identity."  ljust small with .n at 3th vertex of LINE color $darkgray
+
+LINE: line from ARC.nw+($n,0) then down $n then down $n then down $n then down until even with ARC.s color $red invis
+FTIT: "DaemonSet" big big above ljust with .n at 1th vertex of LINE color $red
+SUB: "A DaemonSet defines Pods that provide node-local facilities. These might be fundamental to the operation of your cluster, such as a networking helper tool, or be part of an add-on."  ljust small with .n at 3th vertex of LINE color $darkgray
+
+
+"Workload Types" big big with .n at SLIDE.n-(0,$m)
+
+line from SLIDE.w to SLIDE.e thickness 0.0005
+line from SLIDE.n to SLIDE.s thickness 0.0005
