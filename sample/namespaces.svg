@@ -20,7 +20,7 @@
 <path d="M537.12,322.56L652.32,322.56L652.32,207.36L537.12,207.36Z"  style="fill:rgb(238,238,238);stroke-width:4.32;stroke:rgb(238,238,238);" />
 <path d="M191.52,322.56L306.72,322.56L306.72,207.36L191.52,207.36Z"  style="fill:rgb(238,238,238);stroke-width:4.32;stroke:rgb(238,238,238);" />
 <text x="249.12" y="340.2" text-anchor="middle" fill="rgb(255,0,0)" font-size="125%" dominant-baseline="central">Application</text>
-<text x="594.72" y="340.2" text-anchor="middle" fill="rgb(255,0,0)" font-size="125%" dominant-baseline="central">Side Car</text>
+<text x="594.72" y="340.2" text-anchor="middle" fill="rgb(255,0,0)" font-size="125%" dominant-baseline="central">Sidecar</text>
 <text x="594.72" y="365.4" text-anchor="middle" fill="rgb(255,0,0)" font-size="125%" dominant-baseline="central">Container</text>
-<text x="421.92" y="544.95" text-anchor="middle" fill="rgb(34,34,34)" font-size="156.25%" dominant-baseline="central">Side Cars Linux Namespaces Explained</text>
+<text x="421.92" y="544.95" text-anchor="middle" fill="rgb(34,34,34)" font-size="156.25%" dominant-baseline="central">Sidecars Linux Namespaces Explained</text>
 </svg>
