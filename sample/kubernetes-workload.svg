@@ -1,0 +1,14 @@
+<svg xmlns='http://www.w3.org/2000/svg' style='font-size:initial;' viewBox="0 0 1991.2 436.32" data-pikchr-date="20260403102956">
+<path d="M649.092,184.56L1340.29,184.56L1340.29,98.16L649.092,98.16Z"  style="fill:rgb(238,238,238);stroke-width:2.16;stroke:rgb(238,238,238);" />
+<path d="M649.092,290.16L1340.29,290.16L1340.29,203.76L649.092,203.76Z"  style="fill:rgb(238,238,238);stroke-width:2.16;stroke:rgb(238,238,238);" />
+<path d="M649.092,395.76L1340.29,395.76L1340.29,309.36L649.092,309.36Z"  style="fill:rgb(238,238,238);stroke-width:2.16;stroke:rgb(238,238,238);" />
+<text x="668.292" y="118.95" text-anchor="start" fill="rgb(229,50,66)" font-size="156.25%" dominant-baseline="central">Deployments</text>
+<text x="668.292" y="149.664" text-anchor="start" fill="rgb(51,51,51)" font-size="80%" dominant-baseline="central">A Deployment manages a set of Pods to run an application workload, usually one that doesn't maintain state.</text>
+<text x="668.292" y="224.55" text-anchor="start" fill="rgb(229,50,66)" font-size="156.25%" dominant-baseline="central">StatefulSet</text>
+<text x="668.292" y="255.264" text-anchor="start" fill="rgb(51,51,51)" font-size="80%" dominant-baseline="central">A StatefulSet runs a group of Pods, and maintains a sticky identity for each of those Pods. This is useful for managing applications that need persistent storage or a stable, unique network identity.</text>
+<text x="668.292" y="330.15" text-anchor="start" fill="rgb(229,50,66)" font-size="156.25%" dominant-baseline="central">DaemonSet</text>
+<text x="668.292" y="360.864" text-anchor="start" fill="rgb(51,51,51)" font-size="80%" dominant-baseline="central">A DaemonSet defines Pods that provide node-local facilities. These might be fundamental to the operation of your cluster, such as a networking helper tool, or be part of an add-on.</text>
+<text x="994.692" y="61.35" text-anchor="middle" fill="rgb(0,0,0)" font-size="156.25%" dominant-baseline="central">Workload Types</text>
+<path d="M610.692,218.16L1378.69,218.16"  style="fill:none;stroke-width:0.072;stroke:rgb(0,0,0);" />
+<path d="M994.692,2.16L994.692,434.16"  style="fill:none;stroke-width:0.072;stroke:rgb(0,0,0);" />
+</svg>
