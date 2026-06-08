@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <style>
+      body { font-family: Arial, sans-serif; padding: 10px; }
+      textarea { width: 100%; height: 200px; margin-bottom: 10px; box-sizing: border-box; }
+      button { background-color: #4285F4; color: white; border: none; padding: 10px 15px; cursor: pointer; width: 100%; }
+      button:hover { background-color: #357AE8; }
+      #status { margin-top: 10px; font-weight: bold; font-size: 13px; }
+    </style>
+  </head>
+  <body>
+    <h3>Template Variables:</h3>
+    <textarea id="varInput" placeholder="variablename: Some Text"></textarea>
+
+    <h3>Paste SVG Code:</h3>
+    <input type="file" id="fileInput" accept=".svg" onchange="handleFileUpload(this)">
+    <textarea id="svgInput" placeholder="<svg>...</svg>"></textarea>
+
+    <button onclick="runImport()">Import to Slide</button>
+    <div id="status"></div>
+
+    <script>
+      function runImport() {
+        var statusDiv = document.getElementById('status');
+        statusDiv.style.color = "black";
+        statusDiv.innerText = "Processing...";
+        
+        try {
+          var svgData = document.getElementById('svgInput').value;
+          // Safely grab the variables, fallback to empty string if the box is missing
+          var varElement = document.getElementById('varInput');
+          var varData = varElement ? varElement.value : ""; 
+          
+          google.script.run
+            .withSuccessHandler(function(msg) {
+              statusDiv.innerText = msg;
+              statusDiv.style.color = msg.includes("Error") ? "red" : "green";
+            })
+            // NEW: Catches hard server crashes (like permissions or syntax errors)
+            .withFailureHandler(function(err) {
+              statusDiv.innerText = "Server Error: " + err.message;
+              statusDiv.style.color = "red";
+            })
+            .importSvgToSlide(svgData, varData);
+            
+        } catch (error) {
+          // NEW: Catches client-side UI issues (like missing HTML elements)
+          statusDiv.innerText = "Browser Error: " + error.message;
+          statusDiv.style.color = "red";
+        }
+      }
+
+      function handleFileUpload(input) {
+        const file = input.files[0];
+        if (!file) return;
+        
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const svgContent = e.target.result;
+          
+          // 1. Put raw code into the SVG textarea
+          document.getElementById('svgInput').value = svgContent;
+          
+          const uniqueVars = new Set();
+          
+          // 2. Use JavaScript native DOMParser to safely parse the SVG string
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(svgContent, "image/svg+xml");
+          
+          // Check for XML parsing errors
+          if (doc.getElementsByTagName("parsererror").length > 0) {
+            console.error("XML Parsing Error");
+            return;
+          }
+
+          // A. Robust Scan for element attributes starting with 'data-var-'
+          const allElements = doc.getElementsByTagName("*");
+          for (let i = 0; i < allElements.length; i++) {
+            const el = allElements[i];
+            // Read all attributes on the element
+            for (let j = 0; j < el.attributes.length; j++) {
+              const attr = el.attributes[j];
+              // Captures data-var-x-add, data-var-y-add, and data-var-displayif
+              if (attr.name.startsWith("data-var-")) {
+                uniqueVars.add(attr.value.trim());
+              }
+            }
+            
+            // B. Robust Scan for raw text tokens: {variableName} inside tags
+            if (el.tagName.toLowerCase() === "text") {
+              const curlyRegex = /\{([^}]+)\}/g;
+              let textMatch;
+              while ((textMatch = curlyRegex.exec(el.textContent)) !== null) {
+                uniqueVars.add(textMatch[1].trim());
+              }
+            }
+          }
+
+          // C. Robust Scan inside CSS <style> text blocks for {variableName}
+          const styleElements = doc.getElementsByTagName("style");
+          for (let i = 0; i < styleElements.length; i++) {
+            const cssText = styleElements[i].textContent;
+            const curlyRegex = /\{([^}]+)\}/g;
+            let cssMatch;
+            
+            // In CSS rules, we need to skip actual rule definitions (e.g. rect { fill: red })
+            // and isolate tokens like font-family: '{myFontVar}' or width: {myWidthVar}
+            while ((cssMatch = curlyRegex.exec(cssText)) !== null) {
+              const cleanedToken = cssMatch[1].trim();
+              
+              // Simple validation rule: If the content contains a colon or semicolon, 
+              // it's an entire CSS block property, NOT a template variable wrapper.
+              if (!cleanedToken.includes(":") && !cleanedToken.includes(";")) {
+                uniqueVars.add(cleanedToken);
+              }
+            }
+          }
+          
+          // 3. Sort alphabetically, format into template strings, and prefix the textarea
+          if (uniqueVars.size > 0) {
+            // NEW: Added .sort() to organize variables alphabetically (A-Z)
+            const templateString = Array.from(uniqueVars)
+              .sort()
+              .map(v => v + ": ")
+              .join('\n');
+            
+            const varTextArea = document.getElementById('varInput');
+            if (varTextArea) {
+              varTextArea.value = templateString;
+            }
+          }
+        };
+        reader.readAsText(file);
+      }
+    </script>
+  </body>
+</html>
