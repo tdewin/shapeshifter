@@ -84,7 +84,7 @@ function parseCssStyles(root, ns) {
 function resolveStyles(elementType, classAttr, cssStyles) {
   // 1. Hardcoded Fallbacks
   const resolved = elementType === 'text' 
-    ? { 'font-family': 'Red Hat Text', 'font-size': '18', 'fill': '#000000', 'width': '200', 'height': '50', 'text-align': 'left' }
+    ? { 'font-family': 'Roboto', 'font-size': '18', 'fill': '#000000', 'width': '200', 'height': '50', 'text-align': 'left' }
     : elementType === 'circle'
     ? { 'fill': '#cccccc', 'stroke': '#000000', 'r': '50' }
     : { 'fill': '#cccccc', 'stroke': '#000000', 'width': '100', 'height': '100', 'rx': '0', 'ry': '0' };
