@@ -69,7 +69,7 @@ PB:box with .n at S.n fill 0xeeeeee color 0xeeeeee
 PA:box with .n at A.n  same as PB
 
 "Application" big with .n at PA.s color red
-"Side Car" big "Container" big with .n at PB.s color red
+"Sidecar" big "Container" big with .n at PB.s color red
 
 
-"Side Cars Linux Namespaces Explained" big big with .n at NETWORK.s color 0x222222
+"Sidecars Linux Namespaces Explained" big big with .n at NETWORK.s color 0x222222
